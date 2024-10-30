@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addOrUpdate(User user) {
+    public void update(User user) {
         em.merge(user);
     }
 

@@ -9,7 +9,8 @@
 <h2>User Info</h2>
 <br>
 <div>
-    <form th:action="saveUser" th:object="${user}" method="POST">
+    <form th:action="${action} == 'update' ? 'updateUser' : 'saveUser'"
+          th:object="${user}" method="POST">
 
         <input type="hidden" th:field="*{id}" />
 

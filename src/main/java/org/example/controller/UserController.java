@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -36,12 +36,19 @@ public class UserController {
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") User user) {
-        userService.addOrUpdate(user);
+        userService.add(user);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.update(user);
         return "redirect:/";
     }
 
     @RequestMapping(value ="/updateInfo", method = RequestMethod.GET)
     public String updateUser(@RequestParam("userId") int id, Model model) {
+        model.addAttribute("action", "update");
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "user-info";
